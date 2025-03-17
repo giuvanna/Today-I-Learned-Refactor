@@ -6,8 +6,8 @@ Uma aplicação web simples e interativa que permite adicionar fatos categorizad
 1. Clone o repositório
 `git clone https://github.com/giuvanna/today-i-learned.git
 
-cd today-i-learned
-`
+`cd today-i-learned`
+
 2. Instale as dependências
 `npm install`
 
