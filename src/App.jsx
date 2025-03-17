@@ -1,6 +1,7 @@
 import { useEffect, useState, createContext, useContext, memo } from "react";
 import supabase from "./supabase";
 import "./assets/styles/style.css";
+import { voteStrategies } from "./voteStrategies";
 
 const CATEGORIES = [
   { name: "technology", color: "#3b82f6" },
@@ -179,35 +180,51 @@ const CategoryFilter = memo(() => {
 });
 
 function FactList({ facts, setFacts }) {
-  if (facts.length === 0) return <p>No facts</p>;
+  if (facts.length === 0) {
+    return <p>No facts</p>;
+  }
+
   return (
     <section>
       <ul className="facts-list">
         {facts.map((fact) => (
-          <Fact key={fact.id} fact={fact} setFacts={setFacts} />
+          <Fact
+            key={fact.id}
+            fact={fact}
+            setFacts={setFacts}
+            categories={CATEGORIES}
+          />
         ))}
       </ul>
-      <p>There are {facts.length} facts in the database. Add yours!</p>
+      <p>There are {facts.length} facts in the database. Add your own!</p>
     </section>
   );
 }
 
-function Fact({ fact, setFacts }) {
+function Fact({ fact, setFacts, categories }) {
   const [isUpdating, setIsUpdating] = useState(false);
 
-  async function handleVote(columnName) {
+  async function handleVote(voteType) {
     setIsUpdating(true);
+
+    const updatedFactData = voteStrategies[voteType](fact);
     const { data: updatedFact, error } = await supabase
       .from("facts")
-      .update({ [columnName]: fact[columnName] + 1 })
+      .update({ [voteType]: updatedFactData[voteType] })
       .eq("id", fact.id)
       .select();
-    setIsUpdating(false);
-    if (!error)
+
+    if (!error) {
       setFacts((facts) =>
         facts.map((f) => (f.id === fact.id ? updatedFact[0] : f))
       );
+    }
+    setIsUpdating(false);
   }
+
+  const categoryColor = categories.find(
+    (cat) => cat.name === fact.category
+  )?.color;
 
   return (
     <li className="fact">
@@ -217,34 +234,25 @@ function Fact({ fact, setFacts }) {
           (Source)
         </a>
       </p>
-      <span
-        className="tag"
-        style={{
-          backgroundColor: CATEGORIES.find((cat) => cat.name === fact.category)
-            .color,
-        }}
-      >
+      <span className="tag" style={{ backgroundColor: categoryColor }}>
         {fact.category}
       </span>
       <div className="vote-buttons">
-        <ButtonFactory
-          type="category"
-          label={`👍 ${fact.votesInteresting}`}
+        <button
           onClick={() => handleVote("votesInteresting")}
           disabled={isUpdating}
-        />
-        <ButtonFactory
-          type="category"
-          label={`🤯 ${fact.votesMindblowing}`}
+        >
+          👍 {fact.votesInteresting}
+        </button>
+        <button
           onClick={() => handleVote("votesMindblowing")}
           disabled={isUpdating}
-        />
-        <ButtonFactory
-          type="category"
-          label={`⛔️ ${fact.votesFalse}`}
-          onClick={() => handleVote("votesFalse")}
-          disabled={isUpdating}
-        />
+        >
+          🤯 {fact.votesMindblowing}
+        </button>
+        <button onClick={() => handleVote("votesFalse")} disabled={isUpdating}>
+          ⛔️ {fact.votesFalse}
+        </button>
       </div>
     </li>
   );
