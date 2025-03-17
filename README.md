@@ -10,12 +10,15 @@ Uma aplicação web simples e interativa que permite adicionar fatos categorizad
 `cd today-i-learned`
 
 2. Instale as dependências
+
 `npm install`
 
-3. Rode o servidor
+4. Rode o servidor
+   
 `npm run dev`
 
-4. Abra a aplicação no navegador
+6. Abra a aplicação no navegador
+   
  `http://localhost:5173`
 
 # ✏️ Refatoração 
