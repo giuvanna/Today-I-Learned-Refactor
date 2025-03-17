@@ -14,11 +14,13 @@ cd today-i-learned
 `npm run dev`
 
 4. Abra a aplicação no navegador
-5. `http://localhost:5173`
+    `http://localhost:5173`
 
 # Refatoração 
 Factory Method Pattern: é um padrão criacional de projeto que fornece uma interface para criar objetos em uma superclasse, mas permite que as subclasses alterem o tipo de objetos que serão criados. [Fonte](https://refactoring.guru/design-patterns/factory-method)
+
 Na aplicação Today I Learned, o padrão de projeto Factory foi implementado no `ButtonFactory` para criar diferentes tipos de botões.
 
 Strategy Pattern: é um padrão de projeto comportamental que permite que você defina uma família de algoritmos, coloque-os em classes separadas, e faça os objetos deles intercambiáveis. [Fonte](https://refactoring.guru/pt-br/design-patterns/strategy)
+
 Na aplicação Today I Learned, o padrão de projeto Strategy foi implementado na lógica de votação facilitando a adição de diferentes tipos de voto no futuro.
