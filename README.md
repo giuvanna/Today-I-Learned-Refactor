@@ -7,7 +7,7 @@ Uma aplicação web simples e interativa que permite adicionar fatos categorizad
    
    `git clone https://github.com/giuvanna/today-i-learned-refactor.git`
 
-   `cd today-i-learned`
+   `cd today-i-learned-refactor`
 
 2. Instale as dependências
 
