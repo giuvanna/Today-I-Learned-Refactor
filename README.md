@@ -4,21 +4,16 @@ Uma aplicação web simples e interativa que permite adicionar fatos categorizad
 
 ## Instalação
 1. Clone o repositório
-   
 `git clone https://github.com/giuvanna/today-i-learned.git
 cd today-i-learned
 `
 3. Instale as dependências
-   
 `npm install`
-
 5. Rode o servidor
-   
 `npm run dev`
 
 7. Abra a aplicação no navegador
-   
-    `http://localhost:5173`
+ `http://localhost:5173`
 
 # Refatoração 
 **Factory Method Pattern**: é um padrão criacional de projeto que fornece uma interface para criar objetos em uma superclasse, mas permite que as subclasses alterem o tipo de objetos que serão criados. [Fonte](https://refactoring.guru/design-patterns/factory-method)
